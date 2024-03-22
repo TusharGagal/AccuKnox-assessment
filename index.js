@@ -1,9 +1,13 @@
-const boldButton = document.querySelectorAll(".bold");
-const italicButton = document.querySelectorAll(".italic");
-const underlineButton = document.querySelectorAll(".underline");
-const fontsizeInput = document.querySelectorAll(".font-size");
-const colorInput = document.querySelectorAll(".color");
+const buttons = {
+  bold: document.querySelectorAll(".bold"),
+  italic: document.querySelectorAll(".italic"),
+  underline: document.querySelectorAll(".underline"),
+};
 
+const inputs = {
+  fontsize: document.querySelectorAll(".font-size"),
+  color: document.querySelectorAll(".color"),
+};
 function changeStyle(e, type) {
   const tar = e.target.parentNode.parentNode;
   if (type === "bold") {
@@ -12,30 +16,23 @@ function changeStyle(e, type) {
     tar.nextSibling.nextSibling.children[0].style.textDecoration = "underline";
   } else if (type === "italic") {
     tar.nextSibling.nextSibling.children[0].style.fontStyle = "italic";
-  } else if (type === "font-size") {
+  } else if (type === "fontsize") {
     tar.nextSibling.nextSibling.children[0].style.fontSize = `${e.target.value}px`;
-  } else if (type === "colorInput") {
+  } else if (type === "color") {
     tar.nextSibling.nextSibling.children[0].style.color = e.target.value;
   }
 }
 
-for (bold of boldButton) {
-  bold.addEventListener("click", (e) => changeStyle(e, "bold"));
-}
-for (italic of italicButton) {
-  italic.addEventListener("click", (e) => changeStyle(e, "italic"));
-}
-for (underline of underlineButton) {
-  underline.addEventListener("click", (e) => changeStyle(e, "underline"));
-}
-
-for (input of fontsizeInput) {
-  input.addEventListener("change", (e) => {
-    changeStyle(e, "font-size");
+for (const buttonType in buttons) {
+  buttons[buttonType].forEach((button) => {
+    button.addEventListener("click", (e) => changeStyle(e, buttonType));
   });
 }
-for (color of colorInput) {
-  color.addEventListener("change", (e) => {
-    changeStyle(e, "colorInput");
+
+for (const inputType in inputs) {
+  inputs[inputType].forEach((input) => {
+    input.addEventListener("change", (e) => {
+      changeStyle(e, inputType);
+    });
   });
 }
